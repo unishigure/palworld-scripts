@@ -1,6 +1,6 @@
 # Palworld Scripts
 
-以下を前提とする
+## 前提
 
 - Ubuntu 環境
 - `steam` ユーザでホームディレクトリに `SteamCMD` をインストールしている\
@@ -14,7 +14,9 @@
 デフォルトゲームサーバ設定ファイル：\
 `/home/steam/Steam/steamapps/common/PalServer/DefaultPalWorldSettings.ini`
 
-## Service 化
+## Usage
+
+### Service 化
 
 ゲームサーバが停止しても、自動で再起動するようサービスで起動する
 
@@ -50,11 +52,13 @@ sudo systemctl status palworld-dedicated
 sudo systemctl stop palworld-dedicated
 ```
 
-## Scheduled Restart
+---
+
+### Scheduled Restart
 
 毎日1,5,9,13,17,21時の4時間毎に、ゲームサーバの再起動をするスクリプト
 
-### ゲームサーバの設定
+#### ゲームサーバの設定
 
 ゲームサーバ設定ファイル `PalWorldSettings.ini` を編集する\
 なければ `DefaultPalWorldSettings.ini` をコピー、リネームして `PalWorldSettings.ini` とする
@@ -78,7 +82,7 @@ RCONEnabled=True
 RCONPort=25575
 ```
 
-### 環境変数の設定
+#### 環境変数の設定
 
 ゲームサーバ設定ファイル `PalWorldSettings.ini` の\
 `AdminPassword` に設定したパスワードを、環境変数 `PAL_ADMIN_PASS` として\
@@ -89,7 +93,7 @@ echo export PAL_ADMIN_PASS={AdminPassword} >> /home/steam/.bash_profile
 echo export PAL_RCON_PORT={RCONPort} >> /home/steam/.bash_profile
 ```
 
-### ARRCON のインストール
+#### ARRCON のインストール
 
 [ARRCON](https://github.com/radj307/ARRCON) をダウンロードし、展開する\
 → [Releases](https://github.com/radj307/ARRCON/releases) から Linux 用 zip をダウンロード\
@@ -109,7 +113,7 @@ ARRCON -H localhost -P $PAL_RCON_PORT -p $PAL_ADMIN_PASS info
 ARRCON -H localhost -P $PAL_RCON_PORT -p $PAL_ADMIN_PASS showplayers
 ```
 
-### cron の設定
+#### cron の設定
 
 `steam` ユーザで `/home/steam/PalScripts` と `/home/steam/PalScripts/log` ディレクトリを作成
 
