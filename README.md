@@ -64,7 +64,8 @@ sudo systemctl stop palworld-dedicated
 
 ゲームサーバ設定ファイル `PalWorldSettings.ini` を編集する\
 なければ `DefaultPalWorldSettings.ini` をコピー、リネームして `PalWorldSettings.ini` とする
-改行などを入れてはいけないらしいので注意
+
+※ 改行などを入れてはいけないらしいので注意
 
 `ServerPassword` に、任意の管理者用パスワードを設定する
 
