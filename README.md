@@ -166,3 +166,4 @@ sudo tail -f /var/log/syslog | grep CRON
 - [crontabでdateコマンドを実行 – エラーの向こうへ](https://tech.mktime.com/entry/365)
 - [cronでバッチを設定する #Linux - Qiita](https://qiita.com/kiiimiis/items/4b8d0ff0e6891e5df868)
 - [cronで処理を実行させた際に環境変数が読み込まれない件【小ネタ】 | bassbone's blog](https://blog.bassbone.tokyo/archives/1311)
+- [コマンドの出力結果からANSIエスケープシーケンスのカラーリングを取り除く方法 | ゲンゾウ用ポストイット](https://genzouw.com/entry/2023/02/09/090044/3229/)
