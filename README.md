@@ -1,5 +1,11 @@
 # Palworld Scripts
 
+- サービス化\
+  ゲームサーバが停止しても、自動で再起動するようサービスで起動する
+- ゲームサーバの定期自動停止\
+  毎日1,5,9,13,17,21時の4時間毎に、RCONからゲームサーバの停止をするスクリプト\
+  サービス化しておくことで、停止後に自動で再起動される
+
 ## 前提
 
 - Ubuntu 環境
@@ -17,8 +23,6 @@
 ## Usage
 
 ### Service 化
-
-ゲームサーバが停止しても、自動で再起動するようサービスで起動する
 
 `/etc/systemd/system` 以下に `palworld-dedicated.service` を配置
 
@@ -55,8 +59,6 @@ sudo systemctl stop palworld-dedicated
 ---
 
 ### Scheduled Restart
-
-毎日1,5,9,13,17,21時の4時間毎に、ゲームサーバの再起動をするスクリプト
 
 #### ゲームサーバの設定
 
@@ -156,6 +158,7 @@ sudo tail -f /var/log/syslog | grep CRON
 
 ## Ref
 
+- [Palworld tech guide - Dedicated server guide](https://tech.palworldgame.com/dedicated-server-guide)
 - [最大32人 パルワールド Linux 専用サーバの建て方 (AlmaLinux) #Linux - Qiita](https://qiita.com/naoya-i/items/e907a6b949e5da36d532)
 - [/etc/cron.dへ置くファイルにはownerとpermissionに制約があるっぽい - モヒカンメモ](https://blog.pinkumohikan.com/entry/etc-cron.d-has-restriction-for-permission-and-owner)
 - [ubuntuでcronを動かす方法-水色のパンダ団日記](https://pandadannikki.blogspot.com/2023/03/crontab.html)
