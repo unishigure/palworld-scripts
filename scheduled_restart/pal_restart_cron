@@ -1,0 +1,2 @@
+30 0,4,8,12,16,20 * * * steam /home/steam/PalScripts/scheduled_palserver_restart.sh >>/home/steam/PalScripts/log/restart_$(date +\%Y\%m\%d).log
+# end of cronfile

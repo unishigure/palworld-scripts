@@ -1,0 +1,17 @@
+[Unit]
+Description=Palworld Dedicated Server
+Wants=network-online.target
+After=syslog.target network.target nss-lookup.target network-online.target
+
+[Service]
+ExecStart=/home/steam/Steam/steamapps/common/PalServer/PalServer.sh -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
+LimitNOFILE=100000
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s INT $MAINPID
+Restart=always
+User=steam
+Group=steam
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target
