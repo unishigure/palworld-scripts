@@ -1,25 +1,64 @@
 #!/bin/bash -l
 
-ANSI_FILTER="s/\x1b\[([0-9]{1,3}((;[0-9]{1,3})*)?)?[mGK]//g"
+if [ -n $PAL_ADMIN_PASS ]; then
+    PASS=$PAL_ADMIN_PASS
+else
+    echo 'Please set the "$PAL_ADMIN_PASS" environment variable.'
+    exit -1
+fi
+
+if [ -n $PAL_API_PORT ]; then
+    PORT=$PAL_API_PORT
+else
+    PORT=8212
+fi
 
 echo $(date) : Restart 30 mins ago
-ARRCON -H localhost -P $PAL_RCON_PORT -p $PAL_ADMIN_PASS "broadcast The_server_will_restart_after_30_minutes" | sed -E $ANSI_FILTER
+curl --basic -u admin:$PASS \
+    -X POST "http://localhost:$PORT/v1/api/announce" \
+    -H 'Content-Type: application/json' \
+    --data-raw '{
+        "message": "The server will restart after 30 minutes."
+    }'
 sleep 1200
 
 echo $(date) : Restart 10 mins ago
-ARRCON -H localhost -P $PAL_RCON_PORT -p $PAL_ADMIN_PASS "broadcast The_server_will_restart_after_10_minutes" | sed -E $ANSI_FILTER
+curl --basic -u admin:$PASS \
+    -X POST "http://localhost:$PORT/v1/api/announce" \
+    -H 'Content-Type: application/json' \
+    --data-raw '{
+        "message": "The server will restart after 10 minutes."
+    }'
 sleep 300
 
 echo $(date) : Restart 5 mins ago
-ARRCON -H localhost -P $PAL_RCON_PORT -p $PAL_ADMIN_PASS "broadcast The_server_will_restart_after_5_minutes" | sed -E $ANSI_FILTER
+curl --basic -u admin:$PASS \
+    -X POST "http://localhost:$PORT/v1/api/announce" \
+    -H 'Content-Type: application/json' \
+    --data-raw '{
+        "message": "The server will restart after 5 minutes."
+    }'
 sleep 120
 
 echo $(date) : Restart 3 mins ago
-ARRCON -H localhost -P $PAL_RCON_PORT -p $PAL_ADMIN_PASS "broadcast The_server_will_restart_after_3_minutes" | sed -E $ANSI_FILTER
+curl --basic -u admin:$PASS \
+    -X POST "http://localhost:$PORT/v1/api/announce" \
+-H 'Content-Type: application/json' \
+    --data-raw '{
+        "message": "The server will restart after 3 minutes."
+    }'
 sleep 120
 
 echo $(date) : Restart 1 min ago
-ARRCON -H localhost -P $PAL_RCON_PORT -p $PAL_ADMIN_PASS "shutdown 60" | sed -E $ANSI_FILTER
+curl --basic -u admin:$PASS \
+    -X POST "http://localhost:$PORT/v1/api/shutdown" \
+    -H 'Content-Type: application/json' \
+    --data-raw '{
+        "waittime": 60,
+        "message": "Server will shutdown in 10 seconds."
+    }'
+curl --basic -u admin:$PASS \
+    -X POST "http://localhost:$PORT/v1/api/save"
 sleep 60
 
 echo $(date) : Server restarting

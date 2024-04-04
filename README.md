@@ -9,6 +9,7 @@
 ## 前提
 
 - Ubuntu 環境
+- バージョン`0.2.0.6`以降（REST API利用）
 - `steam` ユーザでホームディレクトリに `SteamCMD` をインストールしている\
   [SteamCMD - Valve Developer Community](https://developer.valvesoftware.com/wiki/SteamCMD#Ubuntu)
 - インストールディレクトリを変更せずに Palworld Dedicated Server をインストールしている\
@@ -73,47 +74,19 @@ sudo systemctl stop palworld-dedicated
 ServerPassword="{YourPassword}"
 ```
 
-`RCONEnabled` を有効にする
+`RESTAPIEnabled` を有効にする
 
 ```ini
-RCONEnabled=True
-```
-
-`PAL_RCON_PORT` を確認、必要があれば編集する
-
-```ini
-RCONPort=25575
+RESTAPIEnabled=True
 ```
 
 #### 環境変数の設定
 
 ゲームサーバ設定ファイル `PalWorldSettings.ini` の\
-`AdminPassword` に設定したパスワードを、環境変数 `PAL_ADMIN_PASS` として\
-`RCONPort` に設定したポートを、環境変数 `PAL_RCON_PORT` として、`.bash_profile` に設定する
+`AdminPassword` に設定したパスワードを、環境変数 `PAL_ADMIN_PASS` として、`.bash_profile` に設定する
 
 ```bash
 echo export PAL_ADMIN_PASS={AdminPassword} >> /home/steam/.bash_profile
-echo export PAL_RCON_PORT={RCONPort} >> /home/steam/.bash_profile
-```
-
-#### ARRCON のインストール
-
-[ARRCON](https://github.com/radj307/ARRCON) をダウンロードし、展開する\
-→ [Releases](https://github.com/radj307/ARRCON/releases) から Linux 用 zip をダウンロード\
-パスの通っているどこか（`/usr/bin`とか）に実行ファイルを配置する
-
-`steam` ユーザも実行できるように権限を設定する
-
-```bash
-sudo chown root:root /usr/bin/ARRCON
-sudo chmod 755 /usr/bin/ARRCON
-```
-
-`ARRCON` コマンドの動作確認
-
-```bash
-ARRCON -H localhost -P $PAL_RCON_PORT -p $PAL_ADMIN_PASS info
-ARRCON -H localhost -P $PAL_RCON_PORT -p $PAL_ADMIN_PASS showplayers
 ```
 
 #### cron の設定
