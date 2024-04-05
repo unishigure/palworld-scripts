@@ -80,13 +80,22 @@ ServerPassword="{YourPassword}"
 RESTAPIEnabled=True
 ```
 
+`RESTAPIPort` を必要に応じて変更する
+
+```ini
+RESTAPIPort=8212
+```
+
 #### 環境変数の設定
 
 ゲームサーバ設定ファイル `PalWorldSettings.ini` の\
-`AdminPassword` に設定したパスワードを、環境変数 `PAL_ADMIN_PASS` として、`.bash_profile` に設定する
+`AdminPassword` に設定したパスワードを、環境変数 `PAL_ADMIN_PASS` として、\
+`RESTAPIPort` に設定したポート番号を、環境変数 `PAL_API_PORT` として、\
+それぞれ `.bash_profile` に設定する
 
 ```bash
 echo export PAL_ADMIN_PASS={AdminPassword} >> /home/steam/.bash_profile
+echo export PAL_API_PORT={RESTAPIPort} >> /home/steam/.bash_profile
 ```
 
 #### cron の設定
