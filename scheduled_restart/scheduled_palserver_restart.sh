@@ -61,6 +61,7 @@ curl --basic -u admin:$PASS \
         "waittime": 60,
         "message": "('"$(date "+%T")"') The server will shutdown in 60 seconds."
     }'
+echo
 echo $(date) : Server saving.
 curl --basic -u admin:$PASS \
     -X POST "http://localhost:$PORT/v1/api/save" \
