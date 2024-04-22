@@ -11,6 +11,7 @@
 - Ubuntu 環境
 - バージョン`0.2.0.6`以降（REST API利用）
 - `steam` ユーザでホームディレクトリに `SteamCMD` をインストールしている\
+  （異なる場合、コマンドなどを適宜修正する）\
   [SteamCMD - Valve Developer Community](https://developer.valvesoftware.com/wiki/SteamCMD#Ubuntu)
 - インストールディレクトリを変更せずに Palworld Dedicated Server をインストールしている\
   [Palworld tech guide - Dedicated server guide](https://tech.palworldgame.com/dedicated-server-guide#linux)
