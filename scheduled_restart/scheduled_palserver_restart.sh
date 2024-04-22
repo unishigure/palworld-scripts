@@ -13,43 +13,47 @@ else
     PORT=8212
 fi
 
-echo $(date) : Restart 30 mins ago
+echo $(date) : 30 mins before shutdown.
 curl --basic -u admin:$PASS \
     -X POST "http://localhost:$PORT/v1/api/announce" \
     -H 'Content-Type: application/json' \
     --data-raw '{
         "message": "('"$(date "+%T")"') The server will restart after 30 minutes."
     }'
+echo
 sleep 1200
 
-echo $(date) : Restart 10 mins ago
+echo $(date) : 10 mins before shutdown.
 curl --basic -u admin:$PASS \
     -X POST "http://localhost:$PORT/v1/api/announce" \
     -H 'Content-Type: application/json' \
     --data-raw '{
         "message": "('"$(date "+%T")"') The server will restart after 10 minutes."
     }'
+echo
 sleep 300
 
-echo $(date) : Restart 5 mins ago
+echo $(date) : 5 mins before shutdown.
 curl --basic -u admin:$PASS \
     -X POST "http://localhost:$PORT/v1/api/announce" \
     -H 'Content-Type: application/json' \
     --data-raw '{
         "message": "('"$(date "+%T")"') The server will restart after 5 minutes."
     }'
+echo
 sleep 120
 
-echo $(date) : Restart 3 mins ago
+echo $(date) : 3 mins before shutdown.
 curl --basic -u admin:$PASS \
     -X POST "http://localhost:$PORT/v1/api/announce" \
 -H 'Content-Type: application/json' \
     --data-raw '{
         "message": "('"$(date "+%T")"') The server will restart after 3 minutes."
     }'
+echo
 sleep 120
 
-echo $(date) : Restart 1 min ago
+echo $(date) : 1 min before shutdown. Set shutdown.
 curl --basic -u admin:$PASS \
     -X POST "http://localhost:$PORT/v1/api/shutdown" \
     -H 'Content-Type: application/json' \
@@ -57,11 +61,12 @@ curl --basic -u admin:$PASS \
         "waittime": 60,
         "message": "('"$(date "+%T")"') Server will shutdown in 60 seconds."
     }'
-echo $(date) : Server saving
+echo $(date) : Server saving.
 curl --basic -u admin:$PASS \
     -X POST "http://localhost:$PORT/v1/api/save" \
     -H 'Content-Length: 0'
+echo
 sleep 60
 
-echo $(date) : Server restarting
+echo $(date) : Server shutdown.
 exit 0
