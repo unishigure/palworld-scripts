@@ -25,7 +25,8 @@
 
 ### Service 化
 
-`/etc/systemd/system` 以下に `palworld-dedicated.service` を配置
+`/etc/systemd/system` 以下に `palworld-dedicated.service` を配置\
+ポートやディレクトリ、ユーザに変更がある場合は、適宜編集
 
 デーモンの再起動
 

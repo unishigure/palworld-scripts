@@ -58,7 +58,8 @@ curl --basic -u admin:$PASS \
         "message": "Server will shutdown in 10 seconds."
     }'
 curl --basic -u admin:$PASS \
-    -X POST "http://localhost:$PORT/v1/api/save"
+    -X POST "http://localhost:$PORT/v1/api/save" \
+    -H 'Content-Length: 0'
 sleep 60
 
 echo $(date) : Server restarting
