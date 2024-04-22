@@ -18,7 +18,7 @@ curl --basic -u admin:$PASS \
     -X POST "http://localhost:$PORT/v1/api/announce" \
     -H 'Content-Type: application/json' \
     --data-raw '{
-        "message": "('"$(date "+%T")"') The server will restart after 30 minutes."
+        "message": "('"$(date "+%T")"') The server will shutdown after 30 minutes."
     }'
 echo
 sleep 1200
@@ -28,7 +28,7 @@ curl --basic -u admin:$PASS \
     -X POST "http://localhost:$PORT/v1/api/announce" \
     -H 'Content-Type: application/json' \
     --data-raw '{
-        "message": "('"$(date "+%T")"') The server will restart after 10 minutes."
+        "message": "('"$(date "+%T")"') The server will shutdown after 10 minutes."
     }'
 echo
 sleep 300
@@ -38,7 +38,7 @@ curl --basic -u admin:$PASS \
     -X POST "http://localhost:$PORT/v1/api/announce" \
     -H 'Content-Type: application/json' \
     --data-raw '{
-        "message": "('"$(date "+%T")"') The server will restart after 5 minutes."
+        "message": "('"$(date "+%T")"') The server will shutdown after 5 minutes."
     }'
 echo
 sleep 120
@@ -48,7 +48,7 @@ curl --basic -u admin:$PASS \
     -X POST "http://localhost:$PORT/v1/api/announce" \
 -H 'Content-Type: application/json' \
     --data-raw '{
-        "message": "('"$(date "+%T")"') The server will restart after 3 minutes."
+        "message": "('"$(date "+%T")"') The server will shutdown after 3 minutes."
     }'
 echo
 sleep 120
@@ -59,7 +59,7 @@ curl --basic -u admin:$PASS \
     -H 'Content-Type: application/json' \
     --data-raw '{
         "waittime": 60,
-        "message": "('"$(date "+%T")"') Server will shutdown in 60 seconds."
+        "message": "('"$(date "+%T")"') The server will shutdown in 60 seconds."
     }'
 echo $(date) : Server saving.
 curl --basic -u admin:$PASS \
