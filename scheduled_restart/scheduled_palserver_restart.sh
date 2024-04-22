@@ -1,26 +1,73 @@
 #!/bin/bash -l
 
-ANSI_FILTER="s/\x1b\[([0-9]{1,3}((;[0-9]{1,3})*)?)?[mGK]//g"
+if [ -n "$PAL_ADMIN_PASS" ]; then
+    PASS=$PAL_ADMIN_PASS
+else
+    echo 'Please set the "$PAL_ADMIN_PASS" environment variable.'
+    exit -1
+fi
 
-echo $(date) : Restart 30 mins ago
-ARRCON -H localhost -P $PAL_RCON_PORT -p $PAL_ADMIN_PASS "broadcast The_server_will_restart_after_30_minutes" | sed -E $ANSI_FILTER
+if [ -n "$PAL_API_PORT" ]; then
+    PORT=$PAL_API_PORT
+else
+    PORT=8212
+fi
+
+echo $(date) : 30 mins before shutdown.
+curl --basic -u admin:$PASS \
+    -X POST "http://localhost:$PORT/v1/api/announce" \
+    -H 'Content-Type: application/json' \
+    --data-raw '{
+        "message": "('"$(date "+%T")"') The server will shutdown after 30 minutes."
+    }'
+echo
 sleep 1200
 
-echo $(date) : Restart 10 mins ago
-ARRCON -H localhost -P $PAL_RCON_PORT -p $PAL_ADMIN_PASS "broadcast The_server_will_restart_after_10_minutes" | sed -E $ANSI_FILTER
+echo $(date) : 10 mins before shutdown.
+curl --basic -u admin:$PASS \
+    -X POST "http://localhost:$PORT/v1/api/announce" \
+    -H 'Content-Type: application/json' \
+    --data-raw '{
+        "message": "('"$(date "+%T")"') The server will shutdown after 10 minutes."
+    }'
+echo
 sleep 300
 
-echo $(date) : Restart 5 mins ago
-ARRCON -H localhost -P $PAL_RCON_PORT -p $PAL_ADMIN_PASS "broadcast The_server_will_restart_after_5_minutes" | sed -E $ANSI_FILTER
+echo $(date) : 5 mins before shutdown.
+curl --basic -u admin:$PASS \
+    -X POST "http://localhost:$PORT/v1/api/announce" \
+    -H 'Content-Type: application/json' \
+    --data-raw '{
+        "message": "('"$(date "+%T")"') The server will shutdown after 5 minutes."
+    }'
+echo
 sleep 120
 
-echo $(date) : Restart 3 mins ago
-ARRCON -H localhost -P $PAL_RCON_PORT -p $PAL_ADMIN_PASS "broadcast The_server_will_restart_after_3_minutes" | sed -E $ANSI_FILTER
+echo $(date) : 3 mins before shutdown.
+curl --basic -u admin:$PASS \
+    -X POST "http://localhost:$PORT/v1/api/announce" \
+-H 'Content-Type: application/json' \
+    --data-raw '{
+        "message": "('"$(date "+%T")"') The server will shutdown after 3 minutes."
+    }'
+echo
 sleep 120
 
-echo $(date) : Restart 1 min ago
-ARRCON -H localhost -P $PAL_RCON_PORT -p $PAL_ADMIN_PASS "shutdown 60" | sed -E $ANSI_FILTER
+echo $(date) : 1 min before shutdown. Set shutdown.
+curl --basic -u admin:$PASS \
+    -X POST "http://localhost:$PORT/v1/api/shutdown" \
+    -H 'Content-Type: application/json' \
+    --data-raw '{
+        "waittime": 60,
+        "message": "('"$(date "+%T")"') The server will shutdown in 60 seconds."
+    }'
+echo
+echo $(date) : Server saving.
+curl --basic -u admin:$PASS \
+    -X POST "http://localhost:$PORT/v1/api/save" \
+    -H 'Content-Length: 0'
+echo
 sleep 60
 
-echo $(date) : Server restarting
+echo $(date) : Server shutdown.
 exit 0

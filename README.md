@@ -3,13 +3,15 @@
 - サービス化\
   ゲームサーバが停止しても、自動で再起動するようサービスで起動する
 - ゲームサーバの定期自動停止\
-  毎日1,5,9,13,17,21時の4時間毎に、RCONからゲームサーバの停止をするスクリプト\
+  毎日1,5,9,13,17,21時の4時間毎に、REST API からゲームサーバの停止をするスクリプト\
   サービス化しておくことで、停止後に自動で再起動される
 
 ## 前提
 
 - Ubuntu 環境
+- バージョン`0.2.0.6`以降（REST API利用）
 - `steam` ユーザでホームディレクトリに `SteamCMD` をインストールしている\
+  （異なる場合、コマンドなどを適宜修正する）\
   [SteamCMD - Valve Developer Community](https://developer.valvesoftware.com/wiki/SteamCMD#Ubuntu)
 - インストールディレクトリを変更せずに Palworld Dedicated Server をインストールしている\
   [Palworld tech guide - Dedicated server guide](https://tech.palworldgame.com/dedicated-server-guide#linux)
@@ -24,7 +26,8 @@
 
 ### Service 化
 
-`/etc/systemd/system` 以下に `palworld-dedicated.service` を配置
+`/etc/systemd/system` 以下に `palworld-dedicated.service` を配置\
+ポートやディレクトリ、ユーザに変更がある場合は、適宜編集
 
 デーモンの再起動
 
@@ -73,47 +76,28 @@ sudo systemctl stop palworld-dedicated
 ServerPassword="{YourPassword}"
 ```
 
-`RCONEnabled` を有効にする
+`RESTAPIEnabled` を有効にする
 
 ```ini
-RCONEnabled=True
+RESTAPIEnabled=True
 ```
 
-`PAL_RCON_PORT` を確認、必要があれば編集する
+`RESTAPIPort` を必要に応じて変更する
 
 ```ini
-RCONPort=25575
+RESTAPIPort=8212
 ```
 
 #### 環境変数の設定
 
 ゲームサーバ設定ファイル `PalWorldSettings.ini` の\
-`AdminPassword` に設定したパスワードを、環境変数 `PAL_ADMIN_PASS` として\
-`RCONPort` に設定したポートを、環境変数 `PAL_RCON_PORT` として、`.bash_profile` に設定する
+`AdminPassword` に設定したパスワードを、環境変数 `PAL_ADMIN_PASS` として、\
+`RESTAPIPort` に設定したポート番号を、環境変数 `PAL_API_PORT` として、\
+それぞれ `.bash_profile` に設定する
 
 ```bash
 echo export PAL_ADMIN_PASS={AdminPassword} >> /home/steam/.bash_profile
-echo export PAL_RCON_PORT={RCONPort} >> /home/steam/.bash_profile
-```
-
-#### ARRCON のインストール
-
-[ARRCON](https://github.com/radj307/ARRCON) をダウンロードし、展開する\
-→ [Releases](https://github.com/radj307/ARRCON/releases) から Linux 用 zip をダウンロード\
-パスの通っているどこか（`/usr/bin`とか）に実行ファイルを配置する
-
-`steam` ユーザも実行できるように権限を設定する
-
-```bash
-sudo chown root:root /usr/bin/ARRCON
-sudo chmod 755 /usr/bin/ARRCON
-```
-
-`ARRCON` コマンドの動作確認
-
-```bash
-ARRCON -H localhost -P $PAL_RCON_PORT -p $PAL_ADMIN_PASS info
-ARRCON -H localhost -P $PAL_RCON_PORT -p $PAL_ADMIN_PASS showplayers
+echo export PAL_API_PORT={RESTAPIPort} >> /home/steam/.bash_profile
 ```
 
 #### cron の設定
