@@ -55,8 +55,9 @@ curl --basic -u admin:$PASS \
     -H 'Content-Type: application/json' \
     --data-raw '{
         "waittime": 60,
-        "message": "('"$(date "+%T")"') Server will shutdown in 10 seconds."
+        "message": "('"$(date "+%T")"') Server will shutdown in 60 seconds."
     }'
+echo $(date) : Server saving
 curl --basic -u admin:$PASS \
     -X POST "http://localhost:$PORT/v1/api/save" \
     -H 'Content-Length: 0'
